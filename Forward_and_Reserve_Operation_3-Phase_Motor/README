@@ -1,0 +1,127 @@
+# 3-Phase Motor Forward & Reverse Control (PLC - TIA Portal)
+
+## Project Description
+This project demonstrates the control of a 3-phase asynchronous motor in both forward and reverse directions using Siemens S7-1200 PLC (TIA Portal).
+
+The system includes:
+- Multiple start buttons
+- Stop button (NC)
+- Thermal relay protection (NC)
+- Electrical interlocking
+- Self-holding (latching)
+
+---
+
+## System Logic
+
+### Forward Operation
+The forward motor starts when:
+- Thermal relay is healthy (NC contact closed)
+- Stop button is not pressed (NC contact closed)
+- Forward start button is pressed
+- Reverse motor is NOT active (interlock)
+
+The system uses a self-holding contact to keep the motor running after the start button is released.
+
+---
+
+### Reverse Operation
+The reverse motor starts when:
+- Thermal relay is healthy (NC contact closed)
+- Stop button is not pressed (NC contact closed)
+- Reverse start button is pressed
+- Forward motor is NOT active (interlock)
+
+Electrical interlocking prevents both directions from running at the same time.
+
+---
+
+## Safety Features
+
+- Thermal Relay Protection (NC)
+- Stop Button (NC)
+- Electrical Interlock (Forward ↔ Reverse)
+- Self-holding (latch logic)
+
+NOTE:
+In real industrial applications, mechanical interlocking between contactors MUST be used in addition to PLC logic.
+
+---
+
+## I/O Configuration
+
+| Tag Name           | Address | Type | Description              |
+|-------------------|--------|------|--------------------------|
+| I_THERMAL_RELAY   | I0.0   | Bool | Thermal relay (NC)       |
+| I_START_BTN_1     | I0.1   | Bool | Forward start button     |
+| I_STOP_BTN        | I0.2   | Bool | Stop button (NC)         |
+| I_FORWARD_BTN     | I0.3   | Bool | Forward command          |
+| I_RESERVE_BTN     | I0.4   | Bool | Reverse command          |
+| I_START_BTN_2     | I0.5   | Bool | Reverse start button     |
+| Q_FORWARD_MOTOR   | Q0.0   | Bool | Forward motor output     |
+| Q_RESERVE_MOTOR   | Q0.1   | Bool | Reverse motor output     |
+
+---
+
+## Technologies Used
+
+- Siemens TIA Portal
+- S7-1200 PLC (CPU 1212C DC/DC/DC)
+- Ladder Logic (LAD)
+
+---
+
+## How to Run
+
+1. Open the project in TIA Portal
+2. Configure the PLC (CPU 1212C)
+3. Download to PLC or run with PLCSIM
+4. Monitor inputs/outputs
+5. Test forward and reverse operations
+
+---
+
+## Key Learning Outcomes
+
+- Forward / Reverse motor control
+- Electrical interlocking
+- Self-holding (latching)
+- Industrial safety basics
+- PLC ladder programming
+
+---
+
+## Important Note
+
+This project is for educational purposes.
+
+For real industrial systems:
+- Mechanical interlocking is required
+- Proper protection circuits must be used
+- Emergency stop circuits must be implemented correctly
+
+---
+
+## Author
+
+Enes Şen  
+Electrical & Electronics Engineer  
+Focus: PLC, Automation, Embedded Systems  
+
+---
+
+## Türkçe Açıklama
+
+Bu proje, 3 fazlı asenkron motorun ileri ve geri yönde PLC (TIA Portal) ile kontrolünü gerçekleştirmektedir.
+
+### Özellikler:
+- İleri / geri motor kontrolü
+- Termik röle koruması (NC)
+- Stop butonu (NC)
+- Elektriksel kilitleme (interlock)
+- Mühürleme (self-hold)
+
+### Not:
+Gerçek sistemlerde:
+- Mekanik kilitleme zorunludur
+- Sadece PLC yazılımı ile güvenlik sağlanmaz

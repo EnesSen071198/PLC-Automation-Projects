@@ -1,0 +1,114 @@
+3-Phase Asynchronous Motor Control from 4 Different Points (PLC – TIA Portal)
+📌 Project Overview
+
+Bu projede, bir 3 fazlı asenkron motorun
+4 farklı noktadan START/STOP edilmesi sağlanmıştır.
+
+Sistem:
+
+4 adet START butonu (NO)
+
+4 adet STOP butonu (NC)
+
+1 adet Acil Stop (NC)
+
+1 adet Termik Röle (NC)
+
+1 adet Motor çıkışı (Q0.0)
+
+Amaç:
+👉 Endüstriyel standartlara uygun, güvenli ve çok noktadan kontrol edilebilir motor sistemi
+
+Çalışma Mantığı:
+
+Güvenlik zinciri (seri):
+
+Termik Röle (NC)
+
+Acil Stop (NC)
+
+4 adet STOP (NC)
+
+➜ Herhangi biri açılırsa motor DURUR
+
+Çalıştırma (paralel):
+
+4 adet START (NO)
+
+➜ Herhangi biri basılırsa motor ÇALIŞIR
+
+Self-hold (kilitleme):
+
+Motor çıkışı (Q0.0) kendi kontağı ile sistemi tutar
+
+[TERMAL NC] -- [ESTOP NC] -- [STOP1 NC] -- [STOP2 NC] -- [STOP3 NC] -- [STOP4 NC] --+
+                                                                                 |
+        [START1 NO] -------------------------------------------------------------|
+        [START2 NO] -------------------------------------------------------------|
+        [START3 NO] -------------------------------------------------------------|
+        [START4 NO] -------------------------------------------------------------|
+        [Q0.0 NO (SELF HOLD)] ---------------------------------------------------|
+                                                                                 |
+                                                                      ( Q0.0 MOTOR )
+
+I/O Mapping
+Tag Name	Address	Type	Description
+I_THERMAL	I0.0	NC	Termik röle
+I_START_1	I0.1	NO	Start butonu 1
+I_START_2	I0.2	NO	Start butonu 2
+I_START_3	I0.3	NO	Start butonu 3
+I_START_4	I0.4	NO	Start butonu 4
+I_ESTOP	I0.5	NC	Acil stop
+I_STOP_1	I0.6	NC	Stop butonu 1
+I_STOP_2	I0.7	NC	Stop butonu 2
+I_STOP_3	I1.0	NC	Stop butonu 3
+I_STOP_4	I1.1	NC	Stop butonu 4
+Q_MOTOR	Q0.0	Output	Motor kontrol
+
+Safety Considerations
+
+❗ Tüm STOP ve güvenlik elemanları NC seçildi (fail-safe)
+
+❗ Enerji kesilirse sistem otomatik durur
+
+❗ Termik atarsa motor yeniden başlatılamaz
+
+❗ Acil stop her şeyi override eder
+
+🧪 Simulation & Testing (TIA Portal)
+
+PLCSIM ile simülasyonu başlat
+
+Go Online ol
+
+Monitoring (👓) aç
+
+Test senaryoları:
+
+START1 → motor çalışmalı
+
+STOP2 → motor durmalı
+
+ESTOP → anında kesmeli
+
+TERMAL → kilitlemeli
+
+🚀 Improvements (Next Step)
+
+🔄 Motor yön kontrolü (Forward / Reverse)
+
+⏱️ Zaman gecikmeli stop/start
+
+📟 HMI entegrasyonu
+
+🧠 Otomatik / Manuel mod
+
+⚠️ Arıza alarm sistemi
+
+🧾 Conclusion
+
+Bu proje, endüstride sık kullanılan çok noktadan motor kontrolü senaryosunun
+temel ama sağlam bir implementasyonudur.
+
+👉 Gerçek saha mantığıyla birebir uyumludur.
+
